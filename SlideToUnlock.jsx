@@ -12,28 +12,17 @@ export default function SlideToUnlock() {
   });
   const [showLockSlider, setShowLockSlider] = useState(true);
   const [lockSliderValue, setLockSliderValue] = useState(0);
-  const [lastTapTime, setLastTapTime] = useState(0);
 
   const handleLockSliderInput = (e) => {
     setLockSliderValue(e.target.value);
     if (e.target.value >= 100) {
-      setShowLockSlider(false);
-    }
-  };
-
-  const handleUnlockIconTap = () => {
-    const currentTime = Date.now();
-    const timeDifference = currentTime - lastTapTime;
-
-    if (timeDifference < 300) {
-      // If the second tap occurs within 300ms, unlock the screen
       setUiProps({
         uiText: "Home Screen",
         uiColor: "#000",
         uiBg: `url(${HomeScreenImg}) center/cover no-repeat`,
       });
+      setShowLockSlider(false);
     }
-    setLastTapTime(currentTime); // Update last tap time
   };
 
   return (
@@ -68,11 +57,7 @@ export default function SlideToUnlock() {
           />
         </div>
       ) : (
-        <AiFillUnlock
-          className="unlockIcon"
-          style={{ fontSize: "3rem", cursor: "pointer" }}
-          onClick={handleUnlockIconTap}
-        />
+        <AiFillUnlock className="unlockIcon" />
       )}
     </div>
   );
